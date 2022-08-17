@@ -12,10 +12,18 @@
       "type": "string",
       "source": "text",
       "selector": "div"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "none"
     }
   },
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "text": true,
+      "background": true
+    }
   },
   "textdomain": "gutenpride",
   "editorScript": "file:./index.js",
