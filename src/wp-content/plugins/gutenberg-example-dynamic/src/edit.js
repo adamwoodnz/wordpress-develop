@@ -1,9 +1,4 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -30,12 +25,18 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit() {
+	const blockProps = useBlockProps();
+	const posts = useSelect( ( select ) => {
+		return select( 'core' ).getEntityRecords( 'postType', 'post' );
+	}, [] );
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Gutenberg Example Dynamic – hello from the editor!',
-				'gutenberg-example-dynamic'
+		<div { ...blockProps }>
+			{ ! posts && 'Loading' }
+			{ posts && posts.length === 0 && 'No Posts' }
+			{ posts && posts.length > 0 && (
+				<a href={ posts[ 0 ].link }>{ posts[ 0 ].title.rendered }</a>
 			) }
-		</p>
+		</div>
 	);
 }
