@@ -43,7 +43,8 @@ wp-tests-config.php
 /src/wp-content/mu-plugins
 /src/wp-content/plugins/*
 !/src/wp-content/plugins/gutenpride
-/src/wp-content/plugins/gutenpride/node_modules
+!/src/wp-content/plugins/gutenberg-example-dynamic
+/src/wp-content/plugins/**/node_modules
 /src/wp-content/themes/*
 !/src/wp-content/themes/twentyten
 !/src/wp-content/themes/twentyeleven
