@@ -35,7 +35,9 @@ export default function Edit() {
 			{ ! posts && 'Loading' }
 			{ posts && posts.length === 0 && 'No Posts' }
 			{ posts && posts.length > 0 && (
-				<a href={ posts[ 0 ].link }>{ posts[ 0 ].title.rendered }</a>
+				<a style={ blockProps.style } href={ posts[ 0 ].link }>
+					{ posts[ 0 ].title.rendered }
+				</a>
 			) }
 		</div>
 	);

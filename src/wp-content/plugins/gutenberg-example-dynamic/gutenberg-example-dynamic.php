@@ -28,11 +28,13 @@ function gutenberg_example_dynamic_render_callback( $block_attributes, $content 
 
 	$post = $recent_posts[ 0 ];
 	$post_id = $post['ID'];
+	$wrapper_attributes = get_block_wrapper_attributes();
 
 	return sprintf(
-		'<a class="wp-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
+		'<a %3$s class="wp-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
 		esc_url( get_permalink( $post_id ) ),
-		esc_html( get_the_title( $post_id ) )
+		esc_html( get_the_title( $post_id ) ),
+		$wrapper_attributes
 	);
 }
 
@@ -59,7 +61,8 @@ function gutenberg_example_dynamic() {
 		'title' => 'Gutenberg Example Dynamic',
 		'editor_script' => 'gutenberg-example-dynamic',
 		'render_callback' => 'gutenberg_example_dynamic_render_callback',
-		'icon' => 'smiley'
+		'icon' => 'smiley',
+		'supports' => array( 'color' => true ),
 	) );
 
 }
