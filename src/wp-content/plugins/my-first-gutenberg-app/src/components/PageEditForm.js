@@ -1,15 +1,16 @@
-import { Button, TextControl, Spinner } from "@wordpress/components";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { store as coreDataStore } from "@wordpress/core-data";
+
+import { PageForm } from "./PageForm";
 
 export function PageEditForm({ pageId, onCancel, onSaveFinished }) {
 	const args = ["postType", "page", pageId];
 	const { lastError, page, isSaving, hasEdits } = useSelect(
 		(select) => ({
 			page: select(coreDataStore).getEditedEntityRecord(...args),
+			hasEdits: select(coreDataStore).hasEditsForEntityRecord(...args),
 			lastError: select(coreDataStore).getLastEntitySaveError(...args),
 			isSaving: select(coreDataStore).isSavingEntityRecord(...args),
-			hasEdits: select(coreDataStore).hasEditsForEntityRecord(...args),
 		}),
 		[pageId]
 	);
@@ -26,40 +27,21 @@ export function PageEditForm({ pageId, onCancel, onSaveFinished }) {
 			"page",
 			pageId
 		);
+
 		if (updatedRecord) {
 			onSaveFinished();
 		}
 	};
 
 	return (
-		<div className="my-gutenberg-form">
-			<TextControl
-				label="Page title:"
-				value={page.title}
-				onChange={handleChange}
-			/>
-			{lastError && (
-				<div className="form-error">Error: {lastError.message}</div>
-			)}
-			<div className="form-buttons">
-				<Button
-					onClick={handleSave}
-					variant="primary"
-					disabled={!hasEdits || isSaving}
-				>
-					{isSaving ? (
-						<>
-							<Spinner />
-							Saving
-						</>
-					) : (
-						"Save"
-					)}
-				</Button>
-				<Button onClick={onCancel} variant="tertiary" disabled={isSaving}>
-					Cancel
-				</Button>
-			</div>
-		</div>
+		<PageForm
+			title={page.title}
+			onChangeTitle={handleChange}
+			hasEdits={hasEdits}
+			lastError={lastError}
+			isSaving={isSaving}
+			onCancel={onCancel}
+			onSave={handleSave}
+		/>
 	);
 }

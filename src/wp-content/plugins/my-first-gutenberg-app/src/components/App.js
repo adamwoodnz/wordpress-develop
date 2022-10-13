@@ -4,6 +4,7 @@ import { useSelect } from "@wordpress/data";
 import { store as coreDataStore } from "@wordpress/core-data";
 
 import { PagesList } from "./PagesList";
+import { PageCreateButton } from "./PageCreateButton";
 
 export function App() {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -27,7 +28,10 @@ export function App() {
 
 	return (
 		<div>
-			<SearchControl onChange={setSearchTerm} value={searchTerm} />
+			<div className="list-controls">
+				<SearchControl onChange={setSearchTerm} value={searchTerm} />
+				<PageCreateButton />
+			</div>
 			<PagesList hasResolved={hasResolved} pages={pages} />
 		</div>
 	);
