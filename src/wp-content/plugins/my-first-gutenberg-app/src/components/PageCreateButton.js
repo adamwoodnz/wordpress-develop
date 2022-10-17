@@ -1,4 +1,3 @@
-import { useDispatch } from "@wordpress/data";
 import { useState } from "@wordpress/element";
 import { Button, Modal, TextControl } from "@wordpress/components";
 
